@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Movie Ticket Confirmation</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jersey+25+Charted&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&family=Roboto:ital,wght@0,300;0,400;0,700;0,900;1,100;1,400;1,700&family=Sen:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700&family=Jersey+25+Charted&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,300;0,400;0,700;0,900;1,100;1,400;1,700&family=Sen:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style type="text/css">
+        body {
+            background-color: #e0f7fa;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .confirmation-container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 600px;
+            margin: 40px auto;
+        }
+        .confirmation-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .confirmation-header h1 {
+            font-size: 2em;
+            color: #333;
+        }
+        .confirmation-header h2 {
+            font-size: 25px;
+            font-family: 'Jersey 25 Charted', sans-serif;
+            color: #333;
+            margin-top: 10px;
+        }
+        .confirmation-details {
+            margin-bottom: 20px;
+        }
+        .confirmation-details h3 {
+            font-size: 1.2em;
+            color: #666;
+        }
+        .confirmation-details p {
+            font-size: 1em;
+            color: #555;
+            margin: 5px 0;
+        }
+        .seat-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .seat-list span {
+            background-color: #ff9800;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 5px;
+            font-weight: bold;
+        }
+        .total-amount {
+            text-align: center;
+            font-size: 1.5em;
+            color: #333;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        .btn {
+            display: inline-block;
+            border-radius: 25px;
+            padding: 10px 20px;
+            color: white;
+            background-color: #007bff;
+            font-family: 'Kanit', sans-serif;
+            font-size: 14px;
+            text-decoration: none;
+            margin-top: 30px;
+            margin-left:35%;
+        }
+
+        .btn:hover {
+            background-color:red;
+        }
+
+        .btn:not(:disabled):not(.disabled) {
+            cursor: pointer;
+        }
+
+        .btn-icon {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="confirmationMessage" style="display:none;">
+        <p>Payment is done. Redirecting to confirmation page...</p>
+    </div>
+    <div class="confirmation-container">
+        <div class="confirmation-header">
+            <h1>Booking Confirmation</h1>
+            <h2>Thank you, {{ name }}, for choosing us!</h2>
+        </div>
+        <div class="confirmation-details">
+            <h2>Movie Name:</h2>
+            <p style="color:black;font-size:20px;">{{ movie_names }}</p>
+            <h2>Email:</h2>
+            <p style="color:black;font-size:20px;">{{ email }}</p>
+            <h2>Seats:</h2><p style="color:black;font-size:20px;">{{ seats|join(', ') }}</p>
+        </div>
+        <div class="total-amount">
+            Amount Paid: &#8377;{{ total_amount }}
+        </div>
+        <a href="{{ url_for('main_page') }}" class="btn">
+            <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-circle" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM7.354 11.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0 0-.708l3-3a.5.5 0 0 0-.708-.708L3.293 7.293a1 1 0 0 0 0 1.414l3.353 3.353a.5.5 0 0 0 .708 0Z"/>
+                <path fill-rule="evenodd" d="M10.5 8a.5.5 0 0 1-.5.5H1.707l2.647 2.646a.5.5 0 0 1-.708.708l-3.5-3.5a.5.5 0 0 1 0-.708l3.5-3.5a.5.5 0 1 1 .708.708L1.707 7.5H10a.5.5 0 0 1 .5.5Z"/>
+            </svg>
+            Back to Main Page
+        </a>
+    </div>
+    <script>
+        var hasRedirected = false;
+        setTimeout(function() {
+            document.getElementById('confirmationMessage').style.display = 'block';
+            if (!hasRedirected) {
+                hasRedirected = true
+                setTimeout(function() {
+                    window.location.href = '/confirmation';
+                }, 5000);
+            }
+        }, 5000);
+        alert("Please take a screen shot of this ticket (including seat numbers)");
+    </script>
+    
+    </script>
+</body>
+</html>

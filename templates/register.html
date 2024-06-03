@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1e1f26; /* Background color */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: #ffffff; /* Container background color */
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Box shadow */
+            padding: 20px;
+        }
+        .card {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Box shadow */
+        }
+        .card-header {
+            background-color: #007bff; /* Bootstrap primary color */
+            color: #ffffff;
+        }
+        .btn-primary {
+            background-color: #4CAF50;
+            border-color: #4CAF50;
+        }
+        .btn-primary:hover {
+            background-color: #45a049;
+            border-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <div class="error-message">
+              {% for message in messages %}
+                <p>{{ message }}</p>
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% endwith %}
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">User Registration</div>
+                    <div class="card-body">
+                        <form action="/register" method="POST">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                            <div class="form-group">
+                                <label for="username">Username:</label>
+                                <input type="text" name="username" id="username" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email:</label>
+                                <input type="email" name="email" id="email" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password:</label>
+                                <input type="password" name="password" id="password" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="confirm_password">Confirm Password:</label>
+                                <input type="password" name="confirm_password" id="confirm_password" class="form-control" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Register</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
